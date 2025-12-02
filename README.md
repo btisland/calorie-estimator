@@ -2,6 +2,8 @@
 
 A Streamlit web application that estimates calorie content of food from images using Google Gemini Vision API.
 
+🚀 **[Try it live on Hugging Face Spaces](https://huggingface.co/spaces/josephchou/calorie-estimator)**
+
 ## Features
 
 - 📸 Upload food images to analyze

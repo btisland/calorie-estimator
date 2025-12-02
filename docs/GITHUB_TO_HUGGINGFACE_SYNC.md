@@ -152,8 +152,14 @@ git push -u origin main
    - 選擇您的 `calorie-estimator` repository
    - **Permissions** → **Repository permissions**:
      - Contents: **Read and write** （允許推送程式碼）
+     - Workflows: **Read and write** （允許推送 workflow 檔案）⚠️ 重要！
      - Metadata: **Read-only** （自動勾選）
 4. 點擊 "Generate token" 並複製 token
+
+⚠️ **重要說明**：
+- **Workflows 權限**是用來推送 `.github/workflows/` 檔案到 GitHub
+- 如果沒有這個權限，推送時會出現錯誤：`refusing to allow a Personal Access Token to create or update workflow`
+- 這與 GitHub Actions 執行無關，只是本機推送需要
 5. 推送時使用：
    ```bash
    git push https://YOUR_USERNAME:YOUR_TOKEN@github.com/YOUR_USERNAME/calorie-estimator.git main
