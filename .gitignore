@@ -47,3 +47,6 @@ htmlcov/
 # Gradio
 gradio_cached_examples/
 .gradio_cached_examples/
+
+# Claude Code
+.claude/settings.local.json
