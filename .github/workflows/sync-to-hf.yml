@@ -1,0 +1,44 @@
+name: Sync to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Prepare files for Hugging Face
+        run: |
+          # Replace README.md with HF version
+          cp README_HF.md README.md
+
+          # Verify files exist
+          ls -la
+
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # Add Hugging Face remote
+          git remote add huggingface https://josephchou:$HF_TOKEN@huggingface.co/spaces/josephchou/calorie-estimator || true
+
+          # Commit changes (if any)
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || git commit -m "Sync from GitHub: $(git log -1 --pretty=%B)"
+
+          # Push to Hugging Face
+          git push huggingface main --force
