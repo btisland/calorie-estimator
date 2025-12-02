@@ -26,12 +26,6 @@ jobs:
           # Replace README.md with HF version
           cp README_HF.md README.md
 
-          # Copy app.py from src/ to root for Hugging Face Space
-          cp src/app.py app.py
-
-          # Verify files exist
-          ls -la
-
       - name: Push to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
@@ -40,9 +34,7 @@ jobs:
           git remote add huggingface https://josephchou:$HF_TOKEN@huggingface.co/spaces/josephchou/calorie-estimator || true
 
           # Commit changes (if any)
-          # Use -f to force add app.py (it's in .gitignore for local development)
           git add README.md
-          git add -f app.py
           git diff --quiet && git diff --staged --quiet || git commit -m "Sync from GitHub: $(git log -1 --pretty=%B)"
 
           # Push to Hugging Face
