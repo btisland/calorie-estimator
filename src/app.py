@@ -10,7 +10,14 @@ import streamlit as st
 from dotenv import load_dotenv
 
 # Add src directory to Python path
-sys.path.insert(0, str(Path(__file__).parent))
+# This supports both running from src/ and from root directory
+current_dir = Path(__file__).parent
+if current_dir.name == "src":
+    # Running from src/app.py
+    sys.path.insert(0, str(current_dir))
+else:
+    # Running from root app.py (copied by GitHub Actions for Hugging Face)
+    sys.path.insert(0, str(current_dir / "src"))
 
 from food_recognizer import FoodRecognizer
 
